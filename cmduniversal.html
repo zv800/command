@@ -1,0 +1,1267 @@
+<!doctype html>
+	<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Command Combiner Optimized</title>
+		<script src="js/jquery.min.js"></script>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	    <meta name="author" content="MrGarretto">
+		<meta name="description" content="The best generator for creating complex machines with one command! Supports encasing within a box, signs, and 20hz clocks, all automatically!">
+		<meta name="keywords" content="to,one,command,command combiner,minecraft,generator,clock,only one command,filter,mcedit,javascript">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+	    <link href='https://fonts.googleapis.com/css?family=Asap' rel='stylesheet' type='text/css'>
+	    <link rel="stylesheet" href="java-script/ui/jquery-ui.theme.css">
+	    <link rel="icon" href="images/icon.png" type="image/x-icon" /> 
+	    <link rel="shortcut icon" href="images/icon.png" type="image/x-icon" />
+	    <style>
+	    	@font-face { font-family: 'Open Sans'; src: url('../fonts/open-sans/OpenSans-Light.ttf'); }
+	    	@font-face { font-family: 'Roboto'; src: url('../fonts/roboto/Roboto-Regular.ttf'); }
+	    	.hvr-shutter-out-horizontal{font-family:'Roboto';width:100px;margin-left:auto;margin-right:auto;margin-top:10px;font-size:20px,display:inline-block;vertical-align:middle;-webkit-transform:translateZ(0);transform:translateZ(0);box-shadow:0 0 1px rgba(0,0,0,0);-webkit-backface-visibility:hidden;backface-visibility:hidden;-moz-osx-font-smoothing:grayscale;position:relative;background:#e1e1e1;-webkit-transition-property:color;transition-property:color;-webkit-transition-duration:.3s;transition-duration:.3s;border-radius:5px}.hvr-shutter-out-horizontal:before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:0;right:0;background:#2098d1;-webkit-transform:scaleX(0);transform:scaleX(0);-webkit-transform-origin:50%;transform-origin:50%;-webkit-transition-property:transform;transition-property:transform;-webkit-transition-duration:.3s;transition-duration:.3s;-webkit-transition-timing-function:ease-out;transition-timing-function:ease-out;border-radius:5px}.hvr-shutter-out-horizontal:hover,.hvr-shutter-out-horizontal:focus,.hvr-shutter-out-horizontal:active{cursor:pointer;color:#fff;border-radius:5px}.hvr-shutter-out-horizontal:hover:before,.hvr-shutter-out-horizontal:focus:before,.hvr-shutter-out-horizontal:active:before{-webkit-transform:scaleX(1);transform:scaleX(1);border-radius:5px}#generate{margin-top:25px;border:1px solid #B2B2B2;}
+	    	body {background:url(../images/wallpaper.jpg) no-repeat center center fixed;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;overflow-x:hidden;font-family:'Asap';text-align:center}
+	    	h1 {margin-top:80px;font-family:'Ubuntu';font-size:2em;font-weight:700;color:white;text-shadow:2px 2px #022e6d}
+	    	h2 {margin-top:6px;color:#CFCFCF;font-size:1.4em}
+	    	.content-container {
+	    		background-color: white;
+	    		padding: 10px;
+	    		border-radius: 10px;
+	    		border: 1px solid gray;
+	    		margin: 15px;
+	    		margin-top: 25px;
+	    		max-width: 800px;
+	    		margin-left: auto;
+	    		margin-right: auto;
+	    	}
+	    	#output-command {
+				margin-top: 4px;
+				background-color:#E6E6E6;
+				display: none;
+				border-radius: 5px;
+				max-width: 95%;
+				width: 50%;
+				height: 50px;
+				margin-top: 10px;
+			}
+			#output-stats {
+				color: #5C5C5C;
+			}
+	    	.title {
+	    		font-family: 'Ubuntu';
+	    		font-size: 24px;
+	    		margin-left: 15px;
+	    		color: #1474d5;
+	    		padding: 5px;
+	    		border-bottom: 1px solid gray;
+	    		text-align: left;
+	    		padding-top: -10px;
+	    	}
+	    	#input-commands {
+	    		font-size:16px;
+	    		border-color:#cccccc;
+	    		border-style:solid;
+	    		padding:5px;
+	    		border-width:1px;
+	    		border-radius:10px;
+	    		max-width: 95%;
+	    		width: 810px;
+	    		min-width: 400px;
+	    		font-family: 'Roboto';
+	    		height: 300px;
+	    		margin-bottom:15px;
+	    	}
+			#input-commands:focus {
+				outline:none;
+			}
+			.subcategory {
+				margin: 10px;
+				background-color: #ECECEC;
+				padding-bottom: 10px;
+				width: 200px;
+				overflow: hidden;
+				border-radius: 4px;
+				display: inline-block;
+				text-align: left;
+				vertical-align: top;
+			}
+			.sub-name {
+				width: 100%;
+				background-color: #1474d5;
+				padding: 4px 0px 4px 0px;
+				margin-bottom: 8px;
+				color: white;
+				font-family: 'Roboto';
+				text-align: center;
+			}
+			.option-checkbox {
+				margin-top: 5px;
+				margin-bottom: 5px;
+				margin-left: 15px;
+			}
+			.option-box-text {
+				margin-left: 10px;
+			}
+			#option-box-enable-text {
+				margin-bottom: 10px;
+			}
+			#option-box-limit-slider {
+				width: 98%;
+				margin-top: 8px;
+			}
+			#option-box-limit-slider-display {
+				float: right;
+				margin-right: 10px;
+				margin-top: 3px;
+			}
+			#output-command-title {
+				display: none;
+				margin-top: 10px;
+			}
+			#output-command-title {
+				display: none;
+				margin-top: 5px;
+			}
+			.help-button, #add-sign, .remove-sign {
+				font-family: 'Ubuntu';
+				font-size: 16px;
+				padding: 2px;
+				display: inline-block;
+				margin-left: 5px;
+				margin-right: 5px;
+				margin-top: 8px;
+				background-color: #E8E8E8;
+				border: 1px solid #DADADA;
+				border-radius: 2px;
+				width: 180px;
+			}
+			.help-button:hover, #add-sign:hover, .remove-sign:hover {
+				background-color: #CECECE;
+				border: 1px solid #C0C0C0;
+				cursor: pointer;
+			}
+			.help-container {
+				display: none;
+				width: 90%;
+				margin-left:5%;
+				margin-right: 5%;
+				margin-top: 15px;
+				margin-bottom: 5px;
+				padding: 5px;
+				background-color: #ECECEC;
+				border: 1px solid #DCDCDC;
+				border-radius: 3px;
+				overflow: hidden;
+			}
+			.help-container p {
+				width: 50%;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			.help-function-container {
+				width: 95%;
+				margin-bottom: 20px;
+				margin-top: 20px;
+				margin-left: auto;
+				margin-right: auto;
+				padding: 5px;
+				background-color: white;
+				border-radius: 5px;
+				border: 1px solid #DADADA;
+			}
+			.help-title {
+				font-family: 'Ubuntu';
+				font-size: 17px;
+				width: 101%;
+				margin-left: -5px;
+				margin-top: -5px;
+				padding: 4px;
+				background-color: #DCDCDC;
+			}
+			.help-function {
+				font-family: 'Ubuntu';
+				font-size: 17px;
+				background-color: #1474d5;
+				padding: 2px 5px 2px 5px;
+				border-radius: 4px;
+				color: white;
+			}
+			.help-function-title {
+				width: 30%;
+				text-align: center;
+				border-bottom: 1px solid #DADADA;
+				padding: 2px;
+				margin-bottom: 15px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			.help-function-examples {
+				margin-top: 5px;
+			}
+			.help-function-parameter {
+				color: #FFD6AC;
+			}
+			.help-function-parameter-1 {
+				color: #ACEAAC;
+			}
+			.help-function-parameter-2 {
+				color: #FF9292;
+			}
+			.help-function-example-text {
+				padding: 2px;
+				background-color: #E6E6E6;
+				width: 86%;
+				margin-left: auto;
+				margin-right: auto;
+				border-radius: 3px;
+			}
+			.help-how-to-p-container p {
+				width: 90%;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			.case-blocks-textbox {
+				border-radius: 3px;
+				border: 1px solid #D4D4D4;
+				padding: 2px;
+				font-family: 'Roboto';
+			}
+			#add-sign {
+				margin-bottom: 10px;
+			}
+			.sign-item {
+				margin: 10px;
+				background-color: #E6E6E6;
+				border: 1px solid #D4D4D4;
+				border-radius: 4px;
+				padding: 6px;
+			}
+			.sign-item input {
+				border-radius: 3px;
+				border: 1px solid #D4D4D4;
+				padding: 2px;
+				font-family: 'Roboto';
+				margin: 2px;
+			}
+			.remove-sign {
+				background-color: #FFBABA;
+			}
+			.remove-sign:hover {
+				background-color: #E6A7A7;
+			}
+			.option-label-left {
+				margin-left: 12px;
+				margin-top: 10px;
+			}
+			#option-box-y-height {
+				margin-left: 12px;
+				margin-top: 5px;
+				width: 35px;
+			}
+			#output-errors {
+				display: none;
+				background-color: #FFA3A3;
+				border: 1px solid #CF8484;
+				border-radius: 4px;
+				padding: 7px;
+				font-family: 'Roboto';
+				font-size: 16px;
+				width: 60%;
+				margin-left: auto;
+				margin-right: auto;
+				margin-top: 15px;
+				margin-bottom: 10px;
+			}
+			#ad-bottom {
+				width: 100%;
+				text-align: center;
+				margin-top: -5px;
+				margin-bottom: 8px;
+			}
+			#ad-below-signs {
+				height: 4%;
+				width: 70%;
+				margin-left: 15%;
+				margin-right: 15%;
+				margin-bottom: -10px;
+				margin-top: 8px;
+			}
+			.help-link {
+				text-decoration: none;
+			}
+			.help-link:hover span {
+				background-color: #1766B6;
+			}
+			.italics {
+				color: #454545;
+				margin-top: 2px;
+				font-size: 14px;
+			}
+			.italics a {
+				text-decoration: none;
+				color: #4E76B2;
+			}
+			.italics a:hover {
+				text-decoration: underline;
+			}
+			.twitter-follow-button{margin-left: 30px}
+	    </style>
+	    <!-- Message to adblock users -->
+		<style>
+			#whitelist-message{position:fixed;width:500px;left:50%;margin-left:-250px;top:15%;background-color:#fff;border-radius:4px;border:1px solid gray;box-shadow:5px 5px 5px #000;font-family:Arial;padding:10px;display:none;font-size:18px}#whitelist-message-close{float:right;color:gray;margin-top:2px;font-size:16px}#whitelist-message-close:hover{cursor:pointer;color:#000}</style>
+		<script src="js/showads.js"></script>
+		<script> 
+			window.onload = function() { 
+				setTimeout(function() {
+					if (window.adBlockFree === undefined) {
+						$('body').append('<div id="whitelist-message">Please consider adding my website to your adblock whitelist! Ads are what keep this website up and running! :)<div id="whitelist-message-close">Close</div></div>');
+						$('#whitelist-message').slideDown();
+						$('#whitelist-message-close').click(function() {
+							$('#whitelist-message').slideUp();
+						});
+					}
+				}, 2000);
+			};
+		</script>
+		<!-- End of code for adblock user message -->
+	</head>
+	<body>
+		<div id='nav-container'></div>
+		<script src='java-script/navbar.js'></script>
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		  ga('create', 'UA-60109605-1', 'auto');
+		  ga('send', 'pageview');
+		</script>
+		<h1>Command Combiner Universal 1.8</h1>
+		<h2>By MrGarretto<a href="https://twitter.com/JustMrGarretto" class="twitter-follow-button" data-show-count="false">Follow @JustMrGarretto</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></h2>
+		<div class='content-container'>
+			<div class='title' style='padding-top: 5px'>Options</div>
+			<div class='subcategory'>
+				<div class='sub-name'>Structure Shape</div>
+				<input type='radio' class='option-checkbox option-structure-shape-choice' name='option-structure-shape' value='boxed' checked><span class='option-label'>Boxed</span><br>
+				<input type='radio' class='option-checkbox option-structure-shape-choice' name='option-structure-shape' value='horizontal'><span class='option-label'>Horizontal</span><br>
+				<input type='radio' class='option-checkbox option-structure-shape-choice' name='option-structure-shape' value='vertical'><span class='option-label'>Vertical</span><br>
+				<!-- <input type='radio' class='option-checkbox option-structure-shape-choice' name='option-structure-shape' value='chain'><span class='option-label'>1.9 (BETA)</span><br> -->
+				<span class='option-label-left'>Relative Y height</span> <input type='number' id='option-box-y-height' class='case-blocks-textbox' value='0'>
+			</div>
+			<div class='subcategory' id='box-options'>
+				<div class='sub-name'>Encasing Options</div>
+				<input type='checkbox' id='option-box-encase' class='option-checkbox' onclick='optionEncaseChange()' checked><span class='option-label' id='option-box-enable-text'>Enable casing</span><br>
+				<span class='option-box-case-input'><span class='option-label option-box-text'>Case main block</span> <input type='text' id='option-box-encase-block-window' class='option-checkbox case-blocks-textbox' value='stained_glass 3'></span><br>
+				<span class='option-box-case-input'><span class='option-label option-box-text'>Case top/bottom blocks</span> <input type='text' id='option-box-encase-block-caps' class='option-checkbox case-blocks-textbox' value='stained_hardened_clay 3'></span><br>
+			</div>
+			<div class='subcategory' id='box-options-advanced'>
+				<div class='sub-name'>Box Options</div>
+				<span class='option-label option-box-text' id='option-box-enable-text'>Limit per row</span><span id='option-box-limit-slider-display'>6</span><br><input type='range' id='option-box-limit-slider' min='2' max='25' step='1' value='6'><br>
+				<input type='checkbox' id='option-box-use-blockdata' class='option-checkbox' checked><span class='option-label' id='option-box-use-blockdata-label'>Use /blockdata</span><br>
+				<input type='checkbox' id='option-box-smart-mode' class='option-checkbox' onclick='onChangeSmartMode()' checked><span class='option-label'>Smart mode</span><br>
+			</div>
+			<div class='title' style='margin-top: 5px'>Signs</div>
+			<div id='add-sign'>Add Sign</div>
+			<div id='sign-container'></div>
+			<div id='ad-below-signs'>
+				<script async src="pagead/js/adsbygoogle.js"></script>
+				<!-- Command Combiner Responsive -->
+				<ins class="adsbygoogle"
+				     style="display:block"
+				     data-ad-client="ca-pub-8713086085649301"
+				     data-ad-slot="7713869277"
+				     data-ad-format="auto"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
+			</div>
+			<div class='title' style='margin-top: 5px'>Help</div>
+			<div class='italics'>Huge thanks to <a href='https://www.reddit.com/user/Marcono1234'>Marcono1234</a> for helping me set up the correct escaping sequence!</div>
+			<div id='help-show-functions' class='help-button'>Show built in functions</div>
+			<div id='help-show-how-to' class='help-button'>How to use</div>
+			<div id='help-show-mcedit' class='help-button'>MCEdit Filter</div>
+			<div id='help-show-others' class='help-button'>Other Combiners</div>
+			<div id='help-built-in-functions' class='help-container'>
+				<div class='help-title'>Built in functions</div>
+				<p>
+					Below is a list of the built in functions. They can be used by entering them as a command in the command combiner below!<br>
+				</p>
+				<div class='help-function-container'>
+					<div class='help-function-title'>Block Markers</div>
+					<span class='help-function'>$<span class='help-function-parameter'>(block id)</span>$<span class='help-function-parameter'>(regular command)</span></span>
+					<div class='help-function-title help-function-examples'>Examples</div>
+					<div class='help-function-example-text'>$lapis_block$/say hi</div>
+					<p>Writing $(block id)$ before any clock command in the command combiner will place the block you specified next to that command block, so you can find it easily. This example will place a lapis block next to the "/say hi" command.</p>
+				</div>
+				<div class='help-function-container'>
+					<div class='help-function-title'>Floor Crafting</div>
+					<span class='help-function'>%customcrafting; <span class='help-function-parameter'>(ingredient 1)</span>;<span class='help-function-parameter'> (ingredient 2)</span>; <span class='help-function-parameter-1'>(result item)</span>; <span class='help-function-parameter-1'>(amount)</span>; <span class='help-function-parameter-2'>{result item NBT}</span></span>
+					<div class='help-function-title help-function-examples'>Examples</div>
+					<div class='help-function-example-text'>%customcrafting; grass; stone; diamond_sword; 1; {display:{Name:"Magic Sword"}}</div>
+					<p>Using this in the command combiner would allow you to throw a grass block item and a stone block item together on the ground to create 1 diamond sword named "Magic Sword".</p>
+				</div>
+			</div>
+			<div id='help-how-to' class='help-container'>
+				<div class='help-title'>How to use the command combiner</div>
+				<div class='help-function-container' class='help-how-to-p-container'>
+					<div class='help-function-title'>Writing commands</div>
+					<p>If you are already familiar with command blocks, you should already be a master at using the command combiner! Simply write some commands, each on a new line in the large text field below. They will all be placed on a 20hz fill clock in the final command. If there is a command that you only want to run once, just write <span class='help-function-title help-function-examples'>INIT:</span> before that command. This is mostly useful for adding scoreboard objectives and for /tellraw install messages.</p>
+					<div class='help-function-title help-function-examples'>Examples</div>
+					<div class='help-function-example-text'>INIT:/give @a stone 1</div>
+					<div class='help-function-example-text'>/say test</div>
+					<p>If you were to write these 2 lines in the command combiner, it would give every player 1 stone upon install, then it would constantly spam the chat with "test", 20 times per second.</p>
+				</div>
+				<div class='help-function-container' class='help-how-to-p-container'>
+					<div class='help-function-title'>Comment lines</div>
+					<p>Comments are a very useful feature to help you organize your project. A line can be commented by placing a # before the line. The commented line will be ignored when the command is generated.</p>
+					<div class='help-function-title help-function-examples'>Examples</div>
+					<div class='help-function-example-text'># Removes 1 from the score 'Ex' until it is at 0</div>
+					<div class='help-function-example-text'>/scoreboard players remove @a[score_Ex_min=1] Ex 1</div>
+					<p>If you were to copy and paste those 2 lines into the command combiner, only the second one would appear in the final command. The commented line would be ignored.</p>
+				</div>
+			</div>
+			<div id='help-mcedit' class='help-container'>
+				<div class='help-title'>MCEdit Filter</div>
+				<p style='width: 80%'>
+					In addition to being able to write the commands line-by-line into the command combiner, you can also use MCEdit to convert an in-game creation into a one-command install creation, with this filter! Check the box below if you have used the filter to import a creation from a world for this command.<br>
+				</p>
+				<p>
+					<input type='checkbox' id='import-mcedit'>Import via MCEdit
+				</p>
+				<div class='help-function-container' style='padding-bottom: 10px'>
+					<div class='help-function-title'>Get the filter and MCEdit</div>
+					<a class='help-link' href='http://www.mediafire.com/download/tj86pfm3lgyf4v6/CommandCombiner.py'><span class='help-function'>Download Command Combiner filter V1.01</span></a>
+					<a class='help-link' href='http://khroki.github.io/MCEdit-Unified/'><span class='help-function'>Download MCEdit</span></a><br>
+				</div>
+				<div class='help-function-container'>
+					<div class='help-function-title'>How to use the filter</div>
+					<p style='width: 90%'>To use the filter on a pre-built command block contraption, simply open the world in MCEdit. Then, select the clock and command blocks that you want to compress into one command. Run the filter, and place the generated command block somewhere in the world. Now, open the world in Minecraft, right click the generated command block, then copy all of the text from it. Paste this text into the command input field below, and check the checkbox above, which reads "Import via MCEdit filter". Now, change your options as you please, and press generate. Note that the filter only will work for creations that are on a 20hz clock. To have commands that only are executed once, just include them in the selection, but don't have them on a clock. If the creation was originally split among multiple 20hz clocks in your world, the filter may be unable to preserve the original order or execution.</p>
+				</div>
+			</div>
+			<div id='help-others' class='help-container'>
+				<div class='help-title'>Other Command Combiners</div>
+				<p style='width: 80%'>
+					Below are the other variants of my command combiners.<br>
+				</p>
+				<div class='help-function-container' style='padding-bottom: 10px'>
+					<div class='help-function-title'>Previous Boxed Version</div>
+					<a class='help-link' href='cmdboxed.html'><span class='help-function'>Command Combiner Boxed</span></a>
+				</div>
+				<div class='help-function-container' style='padding-bottom: 10px'>
+					<div class='help-function-title'>Vertical Version</div>
+					<a class='help-link' href='commandvert.html'><span class='help-function'>Command Combiner Vertical</span></a>
+				</div>
+				<div class='help-function-container' style='padding-bottom: 10px'>
+					<div class='help-function-title'>Original Horizontal Version</div>
+					<a class='help-link' href='commanddump.html'><span class='help-function'>Command Combiner Horizontal</span></a>
+				</div>
+			</div>
+			<!-- <div class='title'>Output</div> -->
+			<div class='title' id='output-command-title'>Output</div>
+			<textarea cols='50' rows='1' readonly id="output-command"></textarea>
+			<div id='output-stats'></div>
+			<div id='output-errors'></div>
+			<div id='generate' class='hvr-shutter-out-horizontal'>Generate</div>
+		</div>
+		<textarea id='input-commands' spellcheck='false' placeholder='Write your commands here! Each command should be on a new line! They will be combined into a single-command installer!'></textarea>
+		<div id='ad-bottom'>
+			<script async src="pagead/js/adsbygoogle.js"></script>
+			<!-- Command Combiner Lower -->
+			<ins class="adsbygoogle"
+			     style="display:inline-block;width:728px;height:90px"
+			     data-ad-client="ca-pub-8713086085649301"
+			     data-ad-slot="1994558873"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+		</div>
+		<div id='footer-container'><div id="footer-main"></div></div>
+		<script src='java-script/footer.js'></script>
+		<script>
+			$('#generate').click(function() {
+				// Reset smart commands
+				smartModeCommands = [];
+				getInputCommandsArray();
+				combineCommands(false);
+				updateOutput();
+			});
+			// Signs
+			$('#add-sign').click(function() {
+				var totalText = '';
+				totalText = totalText + "<div class='sign-item'><input type='text' placeholder='Click Command 1' class='sign-input-cmd'><input type='text' placeholder='Click Command 2' class='sign-input-cmd'><input type='text' placeholder='Click Command 3' class='sign-input-cmd'><input type='text' placeholder='Click Command 4' class='sign-input-cmd sign-input-cmd-destroy'><br>";
+				for (i = 0; i < 4; i++) {
+					totalText = totalText + "<input type='text' placeholder='Line " + (i + 1) + "' class='sign-input-line'><select class='sign-input-color'><option value='black'>Black</option><option value='dark_blue'>Dark Blue</option><option value='dark_green'>Dark Green</option><option value='dark_aqua'>Dark Aqua</option><option value='dark_red'>Dark Red</option><option value='dark_purple'>Dark Purple</option><option value='gold'>Gold</option><option value='gray'>Gray</option><option value='dark_gray'>Dark Gray</option><option value='blue'>Blue</option><option value='green'>Green</option><option value='aqua'>Aqua</option><option value='red'>Red</option><option value='light_purple'>Light Purple</option><option value='yellow'>Yellow</option><option value='white'>White</option></select> <input type='checkbox' class='sign-input-style-italics'>Italics <input type='checkbox' class='sign-input-style-bold'>Bold <input type='checkbox' class='sign-input-style-underline'>Underline<br>";
+				}
+				totalText = totalText + "<input type='checkbox' class='sign-input-destroy'>Destroy Machine <span class='remove-sign'>Remove Sign</span></div>";
+				$('#sign-container').append(totalText);
+			});
+			$(document).on('click', '.remove-sign', function() {
+				$(this).parent().remove();
+			});
+			$(document).on('change', '.sign-input-destroy', function() {
+				if ($(this).is(':checked')) {
+					$(this).siblings('.sign-input-cmd-destroy').css('display', 'none');
+				} else {
+					$(this).siblings('.sign-input-cmd-destroy').css('display', 'inline');
+				}
+			});
+			// End of signs
+			var helpSelected = 'none';
+			$('#help-show-functions').click(function() {
+				if (helpSelected !== 'functions') {
+					$('.help-container').css('display', 'none');
+					$('#help-built-in-functions').css('display', 'inline-block');
+					helpSelected = 'functions';
+				} else {
+					$('.help-container').css('display', 'none');
+					helpSelected = 'none';
+				}
+			});
+			$('#help-show-how-to').click(function() {
+				if (helpSelected !== 'howto') {
+					$('.help-container').css('display', 'none');
+					$('#help-how-to').css('display', 'inline-block');
+					helpSelected = 'howto';
+				} else {
+					$('.help-container').css('display', 'none');
+					helpSelected = 'none';
+				}
+			});
+			$('#help-show-mcedit').click(function() {
+				if (helpSelected !== 'mcedit') {
+					$('.help-container').css('display', 'none');
+					$('#help-mcedit').css('display', 'inline-block');
+					helpSelected = 'mcedit';
+				} else {
+					$('.help-container').css('display', 'none');
+					helpSelected = 'none';
+				}
+			});
+			$('#help-show-others').click(function() {
+				if (helpSelected !== 'others') {
+					$('.help-container').css('display', 'none');
+					$('#help-others').css('display', 'inline-block');
+					helpSelected = 'others';
+				} else {
+					$('.help-container').css('display', 'none');
+					helpSelected = 'none';
+				}
+			});
+			$('.option-structure-shape-choice').change(function() {
+				// Box options visibility
+				if ($('input[name="option-structure-shape"]:checked').val() == 'boxed' || $('input[name="option-structure-shape"]:checked').val() == 'chain') {
+					$('#box-options').css('display', 'inline-block');
+					$('#box-options-advanced').css('display', 'inline-block');
+				} else {
+					$('#box-options').css('display', 'none');
+					$('#box-options-advanced').css('display', 'none');
+				}
+			});
+			function onChangeSmartMode() {
+				if ($('#option-box-smart-mode').is(':checked')) {
+					$('#option-box-use-blockdata').attr('disabled', true).css('opacity', '0.5');
+					document.getElementById('option-box-use-blockdata').checked = true;
+					$('#option-box-use-blockdata-label').css('opacity', '0.3');
+				} else {
+					$('#option-box-use-blockdata').attr('disabled', false).css('opacity', '1');
+					$('#option-box-use-blockdata-label').css('opacity', '1');
+				}
+			}
+			onChangeSmartMode();
+			$('#option-box-limit-slider').on('input', function() {
+				var limitVal = $('#option-box-limit-slider').val();
+				$('#option-box-limit-slider-display').html(limitVal);
+			});
+			function optionEncaseChange() {
+				if ($('#option-box-encase').is(':checked')) {
+					$('.option-box-case-input').css('display', 'inline-block');
+				} else {
+					$('.option-box-case-input').css('display', 'none');
+				}
+			}
+			function randomString() {
+			    var text = "";
+			    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+			    for(var i=0; i < 5; i++)
+			        text += possible.charAt(Math.floor(Math.random() * possible.length));
+			    return text;
+			}
+			function getInputCommandsArray() {
+				var inputCommands = $('#input-commands').val();
+				if ($('#import-mcedit').is(':checked')) {
+					inputCommandsArray = inputCommands.split('_*&*_');
+				} else {
+					inputCommandsArray = inputCommands.split('\n');
+				}
+				allCommands = [];
+				// Remove blank and commented commands
+				var getCommandMarkerArray = [];
+				// Custom crafting variables
+				var formatCustomCommand = [];
+				var randomPrefix = '';
+				var currentScoreIdentifier = 1;
+				var getCCDataTag = '';
+				for (i = 0; i < inputCommandsArray.length; i++) {
+					if (inputCommandsArray[i].length >= 1 && inputCommandsArray[i].substring(0, 1) !== '#') {
+						// Add this command to the command array (By objects)
+						allCommands[allCommands.length] = {
+							cmd: inputCommandsArray[i]
+						};
+						if (inputCommandsArray[i].substring(0, 5) == 'INIT:') {
+							allCommands[(allCommands.length) - 1].loc = 'init';
+							allCommands[(allCommands.length) - 1].marker = 'none';
+							allCommands[(allCommands.length) - 1].cmd = allCommands[(allCommands.length) - 1].cmd.replace('INIT: ', '');
+							allCommands[(allCommands.length) - 1].cmd = allCommands[(allCommands.length) - 1].cmd.replace('INIT:', '');
+						} else {
+							if (inputCommandsArray[i].substring(0, 15) == '%customcrafting') {
+								// Custom crafting command
+								formatCustomCommand = inputCommandsArray[i].split('; ', 6); // The 5 might need to be changed to match the amount of parameters in the cc commands
+								getCCDataTag = formatCustomCommand[5];
+								if (getCCDataTag.substring(0, 1) == '{') {
+									getCCDataTag = formatCustomCommand[5].replace('{', '');
+									getCCDataTag = getCCDataTag.substring(0, (getCCDataTag.length - 1));
+								}
+								if (getCCDataTag.indexOf('Item:{') >= 1) {
+									getCCDataTag = getCCDataTag.replace('{Item:{', ('Item:{id:"minecraft:' + formatCustomCommand[3] + '",Count:' + formatCustomCommand[4] + ',' + getCCDataTag + '}'));
+								} else {
+									getCCDataTag = 'Item:{id:"minecraft:' + formatCustomCommand[3] + '",Count:' + formatCustomCommand[4] + ',tag:{' + getCCDataTag + '}}';
+								}
+								getCCDataTag = '{' + getCCDataTag + '}';
+								if (currentScoreIdentifier < 2) {
+									randomPrefix = randomString();
+									allCommands[allCommands.length - 1] = {cmd: 'scoreboard objectives add ' + randomPrefix + '_I dummy', marker: 'none', loc: 'init'};
+								}
+								allCommands[allCommands.length] = {cmd: 'scoreboard players set @e[type=Item] ' + randomPrefix + '_I ' + currentScoreIdentifier + ' {Item:{id:"minecraft:' + formatCustomCommand[1] + '"},OnGround:1b}', marker: 'none', loc: 'clock'};
+								currentScoreIdentifier += 1;
+								allCommands[allCommands.length] = {cmd: 'scoreboard players set @e[type=Item] ' + randomPrefix + '_I ' + currentScoreIdentifier + ' {Item:{id:"minecraft:' + formatCustomCommand[2] + '"},OnGround:1b}', marker: 'none', loc: 'clock'};
+								currentScoreIdentifier += 1;
+								allCommands[allCommands.length] = {cmd: 'execute @e[score_' + randomPrefix + '_I_min=' + (currentScoreIdentifier - 2) + ',score_' + randomPrefix + '_I=' + (currentScoreIdentifier - 2) + '] ~ ~ ~ execute @e[r=0,score_' + randomPrefix + '_I_min=' + (currentScoreIdentifier - 1) + ',score_' + randomPrefix + '_I=' + (currentScoreIdentifier - 1) + '] ~ ~ ~ summon Item ~ ~ ~ ' + getCCDataTag, marker: 'none', loc: 'clock'};
+								allCommands[allCommands.length] = {cmd: 'execute @e[score_' + randomPrefix + '_I_min=' + (currentScoreIdentifier - 2) + ',score_' + randomPrefix + '_I=' + (currentScoreIdentifier - 2) + '] ~ ~ ~ execute @e[r=0,score_' + randomPrefix + '_I_min=' + (currentScoreIdentifier - 1) + ',score_' + randomPrefix + '_I=' + (currentScoreIdentifier - 1) + '] ~ ~ ~ kill @e[type=Item,score_' + randomPrefix + '_I_min=' + (currentScoreIdentifier - 2) + ',score_' + randomPrefix + '_I=' + (currentScoreIdentifier - 1) + ',r=3]', marker: 'none', loc: 'clock'};
+							} else {
+								// Regular clock command
+								allCommands[(allCommands.length) - 1].loc = 'clock';
+								allCommands[(allCommands.length) - 1].marker = 'none';
+								if (allCommands[(allCommands.length) - 1].cmd.substring(0, 1) == '$') {
+									getCommandMarkerArray = allCommands[(allCommands.length) - 1].cmd.split('$');
+									allCommands[(allCommands.length) - 1].marker = getCommandMarkerArray[1];
+									// Remove the marker identifier from the final command
+									allCommands[(allCommands.length) - 1].cmd = getCommandMarkerArray[2];
+									for (m = 3; m < getCommandMarkerArray.length; m++) {
+										allCommands[(allCommands.length) - 1].cmd = allCommands[(allCommands.length) - 1].cmd + '$' + getCommandMarkerArray[m]
+									}
+								}
+							}
+						}
+					}
+				}
+				for (i = 0; i < allCommands.length; i++) {
+					allCommands[i].cmd = allCommands[i].cmd.replace(/\\/g, '\\\\');
+					allCommands[i].cmd = allCommands[i].cmd.replace(/"/g, '\\"');
+					if (allCommands[i].loc !== 'init') {
+						allCommands[i].cmd = allCommands[i].cmd.replace(/\\/g, '\\\\');
+						allCommands[i].cmd = allCommands[i].cmd.replace(/"/g, '\\"');
+					}
+				}
+			}
+			endBrackets = 0;
+			function combineCommands(forceSetBlock) {
+				// Run the correct function based on the user's options for how the clock will be formatted
+				formattedClockCommands = [];
+				setupClockHorizontal();
+				// Add all of the formatted actual init commands to the total init string
+				formattedInitCommands = [];
+				endBrackets = 0;
+				for (i = allCommands.length - 1; i >= 0; --i) {
+					if (allCommands[i].loc == 'init') {
+						formattedInitCommands[formattedInitCommands.length] = 'id:MinecartCommandBlock,Command:"' + allCommands[i].cmd + '",Riding:{';
+						endBrackets++;
+					}
+				}
+				$('#output-errors').css('display', 'none').empty();
+				// Add all of the formatted clock commands to the init string in their holders
+				// Run the correct function based on the user's options for how the clock will be formatted
+				formattedClockCommands = [];
+				var selectedShape = $('input[name="option-structure-shape"]:checked').val();
+				if (forceSetBlock == true) {
+					setupClockBoxed(true);
+				} else {
+					switch(selectedShape) {
+					case 'boxed':
+						setupClockBoxed(!($('#option-box-use-blockdata').is(':checked')));
+						break;
+					case 'horizontal':
+						setupClockHorizontal();
+						break;
+					case 'vertical':
+						setupClockVertical();
+						break;
+					case 'chain':
+						setupClockChain(!($('#option-box-use-blockdata').is(':checked')));
+						break;
+					}
+				}
+				if (clockCommandsAmount <= 0) {
+					$('#output-errors').css('display', 'block').html('You must enter at least one non-INIT command into the input box, or else the generated command will not work!<br>');
+				}
+				// Combine all of the formatted init commands into a usable string
+				var initCmdString = '';
+				for (i = 0; i < formattedInitCommands.length; i++) {
+					initCmdString = initCmdString + formattedInitCommands[i];
+				}
+				// Also add the formatted clock commands to that string
+				for (i = 0; i < formattedClockCommands.length; i++) {
+					initCmdString = initCmdString + formattedClockCommands[i];
+				}
+				outputCommand = '/summon MinecartCommandBlock ~ ~1 ~ {Command:kill @e[type=MinecartCommandBlock,r=1],Riding:{id:MinecartCommandBlock,Command:setblock ~ ~-1 ~1 redstone_block,Riding:{id:MinecartCommandBlock,Command:setblock ~ ~ ~1 command_block 0 replace {Command:fill ~ ~-3 ~-1 ~ ~ ~ air},Riding:{' + initCmdString + 'id:MinecartCommandBlock,Command:gamerule commandBlockOutput false,Riding:{id:MinecartCommandBlock,Riding:{id:FallingSand,Block:activator_rail,Time:1,Riding:{id:FallingSand,Block:redstone_block,Time:1,Riding:{id:FallingSand,Block:stone,Time:1}}}}}}}}';
+				for (i = 0; i < endBrackets; i++) {
+					outputCommand = outputCommand + '}';
+				}
+				// Smart mode
+				if ($('#option-box-smart-mode').is(':checked') && $('input[name="option-structure-shape"]:checked').val() !== 'chain') {
+					if (forceSetBlock == true) {
+						var smartModeMethodDisplay = 'Setblock';
+					} else {
+						var smartModeMethodDisplay = 'Blockdata';
+					}
+					smartModeCommands[smartModeCommands.length] = {
+						cmd: outputCommand, 
+						methodused: smartModeMethodDisplay
+					};
+					if (smartModeCommands.length < 2) {
+						getInputCommandsArray();
+						combineCommands(true);
+					}
+				}
+			}
+			// Different clock methods
+			function setupClockHorizontal() {
+				// Long, horizontal placement mode
+				var offsetX = 3;
+				var offsetZ = -1;
+				var switchSides = 0;
+				var offsetY = -2;
+				clockCommandsAmount = 0;
+				for (i = 0; i < allCommands.length; i++) {
+					if (allCommands[i].loc == 'clock') {
+						clockCommandsAmount += 1;
+						switchSides += 1;
+						formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:blockdata ~' + offsetX + ' ~' + offsetY + ' ~' + offsetZ + ' {Command:"' + allCommands[i].cmd + '"},Riding:{';
+						// Make marker block if it's set for this clock command
+						if (allCommands[i].marker !== 'none') {
+							formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:setblock ~' + offsetX + ' ~' + offsetY + ' ~' + (offsetZ * 2) + ' ' + allCommands[i].marker + ',Riding:{';
+							console.log(allCommands[i].marker);
+							endBrackets += 1;
+						}
+						endBrackets += 1;
+						// Toggle the side of the clock on each command
+						offsetZ = -offsetZ;
+						// Move 1 block farther in the X after every 2 command blocks are placed
+						if (switchSides >= 2) {
+							switchSides = 0;
+							offsetX += 1;
+						}
+					}
+				}
+				// Create the redstone block fill commands
+				formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:setblock ~2 ~' + offsetY + ' ~ redstone_block,Riding:{';
+				formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:blockdata ~2 ~' + offsetY + ' ~-1 {Command:fill ~ ~ ~1 ~' + Math.ceil(clockCommandsAmount / 2) + ' ~ ~1 stone},Riding:{';
+				formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:blockdata ~2 ~' + offsetY + ' ~1 {Command:fill ~ ~ ~-1 ~' + Math.ceil(clockCommandsAmount / 2) + ' ~ ~-1 redstone_block},Riding:{';
+				// Fill with empty command blocks
+				formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~2 ~' + offsetY + ' ~-1 ~' + (2 + Math.ceil(clockCommandsAmount / 2)) + ' ~' + offsetY + ' ~-1 command_block,Riding:{';
+				formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~2 ~' + offsetY + ' ~1 ~' + (2 + Math.floor(clockCommandsAmount / 2)) + ' ~' + offsetY + ' ~1 command_block,Riding:{';
+				endBrackets += 5;
+			}
+			function setupClockVertical() {
+				// Long, horizontal placement mode
+				var offsetX = 3;
+				var offsetZ = -1;
+				var switchSides = 0;
+				var offsetY = -2;
+				clockCommandsAmount = 0;
+				for (i = 0; i < allCommands.length; i++) {
+					if (allCommands[i].loc == 'clock') {
+						clockCommandsAmount += 1;
+						switchSides += 1;
+						formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:blockdata ~1 ~' + (offsetX - 4) + ' ~' + offsetZ + ' {Command:"' + allCommands[i].cmd + '"},Riding:{';
+						// Make marker block if it's set for this clock command
+						if (allCommands[i].marker !== 'none') {
+							formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:setblock ~1 ~' + (offsetX - 4) + ' ~' + (offsetZ * 2) + ' ' + allCommands[i].marker + ',Riding:{';
+							console.log(allCommands[i].marker);
+							endBrackets += 1;
+						}
+						endBrackets += 1;
+						// Toggle the side of the clock on each command
+						offsetZ = -offsetZ;
+						// Move 1 block farther in the X after every 2 command blocks are placed
+						if (switchSides >= 2) {
+							switchSides = 0;
+							offsetX += 1;
+						}
+					}
+				}
+				// Create the redstone block fill commands
+				formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:setblock ~1 ~-2 ~ redstone_block,Riding:{';
+				formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:blockdata ~1 ~' + offsetY + ' ~-1 {Command:fill ~ ~ ~1 ~ ~' + Math.ceil(clockCommandsAmount / 2) + ' ~1 stone},Riding:{';
+				formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:blockdata ~1 ~' + offsetY + ' ~1 {Command:fill ~ ~ ~-1 ~ ~' + Math.ceil(clockCommandsAmount / 2) + ' ~-1 redstone_block},Riding:{';
+				// Fill with empty command blocks
+				formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~1 ~-2 ~-1 ~1 ~' + (Math.ceil(clockCommandsAmount / 2) - 2) + ' ~-1 command_block,Riding:{';
+				formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~1 ~-2 ~1 ~1 ~' + (Math.floor(clockCommandsAmount / 2) - 2) + ' ~1 command_block,Riding:{';
+				endBrackets += 5;
+			}
+			smartModeCommands = [];
+			function setupClockBoxed(useSetBlock) {
+				// Long, horizontal placement mode
+				var offsetX = 3;
+				var offsetZ = -1;
+				var switchSides = 0;
+				var offsetY = parseInt($('#option-box-y-height').val());
+				clockCommandsAmount = 0;
+				var useSetBlock = useSetBlock;
+				var limitPerRow = $('#option-box-limit-slider').val();
+				// The line below starts the initial column position at 6 so that it will immediately
+				// run the line "if (currentColumnPos > limitPerRow)" below on the first loop
+				var currentColumnPos = limitPerRow * 2;
+				// Start currentRowPos at -1 since 1 will be added to it on the first loop, so that it
+				// starts on 0 instead of 1 for the first array index on columnArray
+				var currentRowPos = -1;
+				var columnArray = [];
+				var markerBlockOffset = 0;
+				// Create the 2d array of commands
+				var markerString = '';
+				for (i = 0; i < allCommands.length; i++) {
+					if (allCommands[i].loc == 'clock') {
+						currentColumnPos += 1;
+						if (currentColumnPos > (limitPerRow * 2)) {
+							// Once each stack reaches the specified height limit (limitPerRow),
+							// move it back down to 1, and add 1 to the row number
+							currentColumnPos = 1;
+							currentRowPos += 1;
+							columnArray[currentRowPos] = [];
+							if (currentRowPos == 0) {
+								columnArray[currentRowPos][columnArray[currentRowPos].length] = '*****replaceWithClockCmd1*****This_Is_JustAPlaceHolder_ForTheClock_Commands,WHICHisWHYitISsoRANDOM...wannaHearAJoke? WHYareTHEnumbers_10_and_11_the same? Because 10x2 = 20, and 11x2 = twenty too! BTW: if you are seeing this message, there was an error in the command generating! Tell MrGarretto that he goofed it up again!';
+								columnArray[currentRowPos][columnArray[currentRowPos].length] = '*****replaceWithClockCmd2*****This_Is_JustAPlaceHolder_ForTheClock_Commands,WHICHisWHYitISsoRANDOM...wannaHearAJoke? WHYareTHEnumbers_10_and_11_the same? Because 10x2 = 20, and 11x2 = twenty too! BTW: if you are seeing this message, there was an error in the command generating! Tell MrGarretto that he goofed it up again!';
+								currentColumnPos += 2;
+							}
+						}
+						// Marker blocks
+						markerString = '';
+						if (allCommands[i].marker !== 'none') {
+							markerString = '$$*' + allCommands[i].marker + '$$*';
+						}
+						columnArray[currentRowPos][columnArray[currentRowPos].length] = markerString + allCommands[i].cmd;
+						clockCommandsAmount += 1;
+					}
+				}
+				// Format the commands into actual strings that can be used
+				// Loop through the first command in each item in the base array, then the second from each.. etc
+				// Tracking variables to help pre-load the command blocks with /fill below
+				var formatRowsAmount = 0;
+				var formatColsAmount = 0;
+				// Keep track of the final row pos for the negative and positive z sides
+				var formatRowFinalNeg = 0;
+				var formatRowFinalPos = 0;
+				var formatColFinal = 0;
+				var formatHighestRow = 0;
+				var getSubMarker = '';
+				var getSubMarkerArr = [];
+				for (i = 0; i < columnArray.length; i++) {
+					for (b = 0; b < columnArray[i].length; b++) {
+						// Create the formatted boxed commands
+						if (columnArray[i][b].substring(0, 3) == '$$*') {
+							getSubMarkerArr = columnArray[i][b].split('$$*');
+							getSubMarker = getSubMarkerArr[1];
+							formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:setblock ~' + (offsetX + Math.floor(b / 2)) + ' ~' + (-2 + i + offsetY) + ' ~' + (offsetZ * 2) + ' ' + getSubMarker + ',Riding:{';
+							endBrackets += 1;
+							columnArray[i][b] = getSubMarkerArr[2];
+						}
+						if (useSetBlock == true) {
+							formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:setblock ~' + (offsetX + Math.floor(b / 2)) + ' ~' + (-2 + i + offsetY) + ' ~' + offsetZ + ' command_block 0 replace {Command:"' + columnArray[i][b] + '"},Riding:{';
+						} else {
+							formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:blockdata ~' + (offsetX + Math.floor(b / 2)) + ' ~' + (-2 + i + offsetY) + ' ~' + offsetZ + ' {Command:"' + columnArray[i][b] + '"},Riding:{';
+						}
+						endBrackets += 1;
+						if (formatHighestRow < Math.floor(b / 2) + offsetX) {
+							formatHighestRow = Math.floor(b / 2) + offsetX;
+						}
+						if (offsetZ == 1) {
+							formatRowFinalPos = (offsetX + Math.floor(b / 2)); // If offsetZ is positive
+						} else {
+							formatRowFinalNeg = (offsetX + Math.floor(b / 2)); // If offsetZ is negative
+						}
+						formatColFinal = i;
+						offsetZ = -offsetZ // Negate the Z offset
+						formatColsAmount += 1
+					}
+					formatRowsAmount += 1;
+				}
+				// Fill the command blocks so /blockdata can be used (goes after the
+				// blockdata commands in the js code since the array should be backwards)
+				var formatColFinalLimit = formatColFinal;
+				if (formatColFinalLimit < 1) {
+					formatColFinalLimit = 1;
+				}
+				if (useSetBlock == false) {
+					// Clock command blocks
+					formattedClockCommands[0 + markerBlockOffset] = 'id:MinecartCommandBlock,Command:blockdata ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~-1 {Command:fill ~ ~ ~1 ~' + (formatHighestRow - offsetX) + ' ~' + formatColFinal + ' ~1 stone},Riding:{';
+					formattedClockCommands[1 + markerBlockOffset] = 'id:MinecartCommandBlock,Command:blockdata ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~1 {Command:fill ~ ~ ~-1 ~' + (formatHighestRow - offsetX) + ' ~' + formatColFinal + ' ~-1 redstone_block},Riding:{';
+					formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:setblock ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~ redstone_block,Riding:{';
+					// Negative Z side
+					formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~-1 ~' + formatRowFinalNeg + ' ~' + (-2 + formatColFinal + offsetY) + ' ~-1 command_block,Riding:{';
+					formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~-1 ~' + formatHighestRow + ' ~' + (-3 + formatColFinalLimit + offsetY) + ' ~-1 command_block,Riding:{';
+					// Positive Z side
+					formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~1 ~' + formatRowFinalPos + ' ~' + (-2 + formatColFinal + offsetY) + ' ~1 command_block,Riding:{';
+					formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~1 ~' + formatHighestRow + ' ~' + (-3 + formatColFinalLimit + offsetY) + ' ~1 command_block,Riding:{';
+					endBrackets += 5;
+				} else {
+					formattedClockCommands[0 + markerBlockOffset] = 'id:MinecartCommandBlock,Command:setblock ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~-1 command_block 0 replace {Command:fill ~ ~ ~1 ~' + (formatHighestRow - offsetX) + ' ~' + formatColFinal + ' ~1 stone},Riding:{';
+					formattedClockCommands[1 + markerBlockOffset] = 'id:MinecartCommandBlock,Command:setblock ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~1 command_block 0 replace {Command:fill ~ ~ ~-1 ~' + (formatHighestRow - offsetX) + ' ~' + formatColFinal + ' ~-1 redstone_block},Riding:{';
+					formattedInitCommands[formattedInitCommands.length] = 'id:MinecartCommandBlock,Command:setblock ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~ redstone_block,Riding:{';
+					endBrackets += 1;
+				}
+				// Signs
+				// Get input data for each sign
+				var signLines = [];
+				var signLineIndex = 0;
+				$('.sign-item').each(function(signIndex, signValue) {
+					signLines[signLines.length] = [];
+					$(signValue).children('.sign-input-line').each(function(signSubIndex, signSubValue) {
+						signLines[signLines.length - 1][signLines[signLines.length - 1].length] = {lineText: $(signSubValue).val()};
+					});
+					signLineIndex = 0;
+					$(signValue).children('.sign-input-color').each(function(signSubIndex, signSubValue) {
+						signLines[signLines.length - 1][signLineIndex].lineColor = $(signSubValue).val();
+						signLineIndex += 1;
+					});
+					signLineIndex = 0;
+					$(signValue).children('.sign-input-style-italics').each(function(signSubIndex, signSubValue) {
+						signLines[signLines.length - 1][signLineIndex].lineItalic = $(signSubValue).is(':checked');
+						signLineIndex += 1;
+					});
+					signLineIndex = 0;
+					$(signValue).children('.sign-input-style-bold').each(function(signSubIndex, signSubValue) {
+						signLines[signLines.length - 1][signLineIndex].lineBold = $(signSubValue).is(':checked');
+						signLineIndex += 1;
+					});
+					signLineIndex = 0;
+					$(signValue).children('.sign-input-style-underline').each(function(signSubIndex, signSubValue) {
+						signLines[signLines.length - 1][signLineIndex].lineUnderlined = $(signSubValue).is(':checked');
+						signLineIndex += 1;
+					});
+					signLineIndex = 0;
+					$(signValue).children('.sign-input-cmd').each(function(signSubIndex, signSubValue) {
+						signLines[signLines.length - 1][signLineIndex].lineCommand = $(signSubValue).val().replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+						signLineIndex += 1;
+					});
+					if ($(signValue).children('.sign-input-destroy').is(':checked')) {
+						signLines[signLines.length - 1][3].lineCommand = 'DESTROYMACHINE';
+					}
+				});
+				// Adding the signs to the box
+				var signJsonData = '';
+				var signHeightY = 0;
+				var signLineCommand = '';
+				for (i = 0; i < signLines.length; i++) {
+					// Clear the sign json data to be used again
+					signJsonData = '';
+					for (b = 0; b < signLines[i].length; b++) {
+						if (signLines[i][b].lineText.length >= 1) {
+							// If a command is set for this line and there is also text
+							if (signLines[i][b].lineCommand.length >= 1) {
+								signLineCommand = ',clickEvent:{action:\\\\\\"run_command\\\\\\",value:\\\\\\"' + signLines[i][b].lineCommand.replace('DESTROYMACHINE', ('fill ~ ~' + 
+									(-(((Math.ceil((formatColFinal + 2) / 2) - 3) - Math.ceil(signLines.length / 2) + (signLines.length - 1) - i + 1) + 3)) + 
+									' ~-2 ~' + (formatHighestRow + 1) + ' ~' + 
+									(((Math.ceil((formatColFinal + 2) / 2) - 3) - Math.ceil(signLines.length / 2) + (signLines.length - 1) - i + 1) + 4) + 
+									' ~2 air')) + '\\\\\\"}'; // Test this ^^^ tomorrow.. it might simply need to have 1 or 2 added or subtracted to be correct. The negative makes it the opposite of what it calculates below, which will end up giving the bottom of the machine relative to the sign.
+							} else {
+								signLineCommand = '';
+							}
+							signJsonData = signJsonData + ',Text' + (b + 1) + ':"{text:\\\\\\"' + signLines[i][b].lineText + '\\\\\\",color:' + signLines[i][b].lineColor + signLineCommand;
+							if (signLines[i][b].lineItalic == true) {
+								signJsonData = signJsonData + ',italic:true';
+							}
+							if (signLines[i][b].lineBold == true) {
+								signJsonData = signJsonData + ',bold:true';
+							}
+							if (signLines[i][b].lineUnderlined == true) {
+								signJsonData = signJsonData + ',underlined:true';
+							}
+							signJsonData = signJsonData + '}"';
+						} else if (signLines[i][b].lineCommand.length >= 1) {
+							// If there is no text but there is a command set
+							signJsonData = signJsonData + ',Text' + (b + 1) + ':"{text:\\\\\\"\\\\\\",clickEvent:{action:\\\\\\"run_command\\\\\\",value:\\\\\\"' + signLines[i][b].lineCommand.replace('DESTROYMACHINE', ('fill ~ ~' + 
+									(-(((Math.ceil((formatColFinal + 2) / 2) - 3) - Math.ceil(signLines.length / 2) + (signLines.length - 1) - i + 1) + 3)) + 
+									' ~-2 ~' + (formatHighestRow + 1) + ' ~' + 
+									(((Math.ceil((formatColFinal + 2) / 2) - 3) - Math.ceil(signLines.length / 2) + (signLines.length - 1) - i + 1) + 4) + 
+									' ~2 air')) + '\\\\\\"}}"';
+						}
+					}
+					signJsonData = signJsonData.replace(',', ''); // Remove the extra comma at the beginning
+					signHeightY = (Math.ceil((formatColFinal + 2) / 2) - 3) - Math.ceil(signLines.length / 2) + (signLines.length - 1) - i + 1 + offsetY; // Calculate what the height of the sign should be so that it is vertically centered
+					formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:setblock ~1 ~' + signHeightY + ' ~ wall_sign 4 replace {' + signJsonData + '},Riding:{';
+					endBrackets += 1;
+				}
+				// Creating the casing
+				if ($('#option-box-encase').is(':checked')) {
+					// If the user has enabled casing for the box
+					var inputCaseBlockMain = $('#option-box-encase-block-window').val();
+					var inputCaseBlockCaps = $('#option-box-encase-block-caps').val();
+					if (inputCaseBlockMain.indexOf(' ') < 1) {
+						inputCaseBlockMain = inputCaseBlockMain + ' 0';
+					}
+					if (inputCaseBlockCaps.indexOf(' ') < 1) {
+						inputCaseBlockCaps = inputCaseBlockCaps + ' 0';
+					}
+					formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~' + (offsetX - 1) + ' ~' + (-2 + offsetY) + ' ~-2 ~' + (formatHighestRow + 1) + ' ~' + (formatColFinal - 2 + offsetY) + ' ~2 ' + inputCaseBlockMain + ' replace ' + inputCaseBlockCaps + ',Riding:{';
+					formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~' + (offsetX - 1) + ' ~' + (-3 + offsetY) + ' ~-2 ~' + (formatHighestRow + 1) + ' ~' + (formatColFinal - 1 + offsetY) + ' ~2 ' + inputCaseBlockCaps + ' hollow,Riding:{';
+					endBrackets += 2;
+				}
+			}
+			function setupClockChain(useSetBlock) {
+				// Long, horizontal placement mode
+				var offsetX = 3;
+				var offsetZ = -1;
+				var switchSides = 0;
+				var offsetY = parseInt($('#option-box-y-height').val());
+				clockCommandsAmount = 0;
+				var useSetBlock = useSetBlock;
+				var limitPerRow = $('#option-box-limit-slider').val();
+				// The line below starts the initial column position at 6 so that it will immediately
+				// run the line "if (currentColumnPos > limitPerRow)" below on the first loop
+				var currentColumnPos = limitPerRow * 2;
+				// Start currentRowPos at -1 since 1 will be added to it on the first loop, so that it
+				// starts on 0 instead of 1 for the first array index on columnArray
+				var currentRowPos = -1;
+				var columnArray = [];
+				var markerBlockOffset = 0;
+				// Create the 2d array of commands
+				var markerString = '';
+				for (i = 0; i < allCommands.length; i++) {
+					if (allCommands[i].loc == 'clock') {
+						currentColumnPos += 1;
+						if (currentColumnPos > (limitPerRow * 2)) {
+							// Once each stack reaches the specified height limit (limitPerRow),
+							// move it back down to 1, and add 1 to the row number
+							currentColumnPos = 1;
+							currentRowPos += 1;
+							columnArray[currentRowPos] = [];
+							if (currentRowPos == 0) {
+								// columnArray[currentRowPos][columnArray[currentRowPos].length] = '*****replaceWithClockCmd1*****This_Is_JustAPlaceHolder_ForTheClock_Commands,WHICHisWHYitISsoRANDOM...wannaHearAJoke? WHYareTHEnumbers_10_and_11_the same? Because 10x2 = 20, and 11x2 = twenty too! BTW: if you are seeing this message, there was an error in the command generating! Tell MrGarretto that he goofed it up again!';
+								// columnArray[currentRowPos][columnArray[currentRowPos].length] = '*****replaceWithClockCmd2*****This_Is_JustAPlaceHolder_ForTheClock_Commands,WHICHisWHYitISsoRANDOM...wannaHearAJoke? WHYareTHEnumbers_10_and_11_the same? Because 10x2 = 20, and 11x2 = twenty too! BTW: if you are seeing this message, there was an error in the command generating! Tell MrGarretto that he goofed it up again!';
+								// The lines above are not needed for the boxed chain version since they don't even need a fill clock thanks to the new handy-dandy new repeating-command blocks in 1.9.. Yay!
+								// currentColumnPos += 2;
+							}
+						}
+						// Marker blocks
+						markerString = '';
+						if (allCommands[i].marker !== 'none') {
+							markerString = '$$*' + allCommands[i].marker + '$$*';
+						}
+						columnArray[currentRowPos][columnArray[currentRowPos].length] = markerString + allCommands[i].cmd;
+						clockCommandsAmount += 1;
+					}
+				}
+				// Format the commands into actual strings that can be used
+				// Loop through the first command in each item in the base array, then the second from each.. etc
+				// Tracking variables to help pre-load the command blocks with /fill below
+				var formatRowsAmount = 0;
+				var formatColsAmount = 0;
+				// Keep track of the final row pos for the negative and positive z sides
+				var formatRowFinalNeg = 0;
+				var formatRowFinalPos = 0;
+				var formatColFinal = 0;
+				var formatHighestRow = 0;
+				var getSubMarker = '';
+				var getSubMarkerArr = [];
+				var repeatingCMDblockString = '';
+				confirm ()
+				for (i = 0; i < columnArray.length; i++) {
+					for (b = 0; b < columnArray[i].length; b++) {
+						// Create the formatted boxed commands
+						if (columnArray[i][b].substring(0, 3) == '$$*') {
+							getSubMarkerArr = columnArray[i][b].split('$$*');
+							getSubMarker = getSubMarkerArr[1];
+							formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:setblock ~' + (offsetX + Math.floor(b / 2)) + ' ~' + (-2 + i + offsetY) + ' ~' + (offsetZ * 2) + ' ' + getSubMarker + ',Riding:{';
+							endBrackets += 1;
+							columnArray[i][b] = getSubMarkerArr[2];
+						}
+						// Make the first command block set to be a repeating command block so that it repeats and pulses to all of the other chain command blocks
+						if (i == 0) {
+							repeatingCMDblockString = 'repeating_command_block';
+						} else {
+							repeatingCMDblockString = 'chain_command_block';
+						}
+						if (useSetBlock == true) {
+							formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:setblock ~' + (offsetX + Math.floor(b / 2)) + ' ~' + (-2 + i + offsetY) + ' ~' + offsetZ + ' ' + repeatingCMDblockString + ' 0 replace {auto:1,Command:"' + columnArray[i][b] + '"},Riding:{';
+						} else {
+							formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:blockdata ~' + (offsetX + Math.floor(b / 2)) + ' ~' + (-2 + i + offsetY) + ' ~' + offsetZ + ' {auto:1,Command:"' + columnArray[i][b] + '"},Riding:{';
+						}
+						endBrackets += 1;
+						if (formatHighestRow < Math.floor(b / 2) + offsetX) {
+							formatHighestRow = Math.floor(b / 2) + offsetX;
+						}
+						if (offsetZ == 1) {
+							formatRowFinalPos = (offsetX + Math.floor(b / 2)); // If offsetZ is positive
+						} else {
+							formatRowFinalNeg = (offsetX + Math.floor(b / 2)); // If offsetZ is negative
+						}
+						formatColFinal = i;
+						offsetZ = -offsetZ // Negate the Z offset
+						formatColsAmount += 1
+					}
+					formatRowsAmount += 1;
+				}
+				// Fill the command blocks so /blockdata can be used (goes after the
+				// blockdata commands in the js code since the array should be backwards)
+				var formatColFinalLimit = formatColFinal;
+				if (formatColFinalLimit < 1) {
+					formatColFinalLimit = 1;
+				}
+				if (useSetBlock == false) {
+					// Clock command blocks
+					// formattedClockCommands[0 + markerBlockOffset] = 'id:MinecartCommandBlock,Command:blockdata ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~-1 {Command:fill ~ ~ ~1 ~' + (formatHighestRow - offsetX) + ' ~' + formatColFinal + ' ~1 stone},Riding:{';
+					// formattedClockCommands[1 + markerBlockOffset] = 'id:MinecartCommandBlock,Command:blockdata ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~1 {Command:fill ~ ~ ~-1 ~' + (formatHighestRow - offsetX) + ' ~' + formatColFinal + ' ~-1 redstone_block},Riding:{';
+					// formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:setblock ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~ redstone_block,Riding:{';
+					// Lines above are not needed thanks to repeating_command_blocks in 1.9
+					// Negative Z side
+					formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~-1 ~' + formatRowFinalNeg + ' ~' + (-2 + formatColFinal + offsetY) + ' ~-1 repeating_command_block,Riding:{';
+					formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~-1 ~' + formatHighestRow + ' ~' + (-3 + formatColFinalLimit + offsetY) + ' ~-1 repeating_command_block,Riding:{';
+					// Positive Z side
+					formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~1 ~' + formatRowFinalPos + ' ~' + (-2 + formatColFinal + offsetY) + ' ~1 repeating_command_block,Riding:{';
+					formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~1 ~' + formatHighestRow + ' ~' + (-3 + formatColFinalLimit + offsetY) + ' ~1 repeating_command_block,Riding:{';
+					endBrackets += 4;
+				} else {
+					// formattedClockCommands[0 + markerBlockOffset] = 'id:MinecartCommandBlock,Command:setblock ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~-1 repeating_command_block 0 replace {Command:fill ~ ~ ~1 ~' + (formatHighestRow - offsetX) + ' ~' + formatColFinal + ' ~1 stone},Riding:{';
+					// formattedClockCommands[1 + markerBlockOffset] = 'id:MinecartCommandBlock,Command:setblock ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~1 repeating_command_block 0 replace {Command:fill ~ ~ ~-1 ~' + (formatHighestRow - offsetX) + ' ~' + formatColFinal + ' ~-1 redstone_block},Riding:{';
+					// formattedInitCommands[formattedInitCommands.length] = 'id:MinecartCommandBlock,Command:setblock ~' + offsetX + ' ~' + (-2 + offsetY) + ' ~ redstone_block,Riding:{';
+					// endBrackets += 1;
+				}
+				// Signs
+				// Get input data for each sign
+				var signLines = [];
+				var signLineIndex = 0;
+				$('.sign-item').each(function(signIndex, signValue) {
+					signLines[signLines.length] = [];
+					$(signValue).children('.sign-input-line').each(function(signSubIndex, signSubValue) {
+						signLines[signLines.length - 1][signLines[signLines.length - 1].length] = {lineText: $(signSubValue).val()};
+					});
+					signLineIndex = 0;
+					$(signValue).children('.sign-input-color').each(function(signSubIndex, signSubValue) {
+						signLines[signLines.length - 1][signLineIndex].lineColor = $(signSubValue).val();
+						signLineIndex += 1;
+					});
+					signLineIndex = 0;
+					$(signValue).children('.sign-input-style-italics').each(function(signSubIndex, signSubValue) {
+						signLines[signLines.length - 1][signLineIndex].lineItalic = $(signSubValue).is(':checked');
+						signLineIndex += 1;
+					});
+					signLineIndex = 0;
+					$(signValue).children('.sign-input-style-bold').each(function(signSubIndex, signSubValue) {
+						signLines[signLines.length - 1][signLineIndex].lineBold = $(signSubValue).is(':checked');
+						signLineIndex += 1;
+					});
+					signLineIndex = 0;
+					$(signValue).children('.sign-input-style-underline').each(function(signSubIndex, signSubValue) {
+						signLines[signLines.length - 1][signLineIndex].lineUnderlined = $(signSubValue).is(':checked');
+						signLineIndex += 1;
+					});
+					signLineIndex = 0;
+					$(signValue).children('.sign-input-cmd').each(function(signSubIndex, signSubValue) {
+						signLines[signLines.length - 1][signLineIndex].lineCommand = $(signSubValue).val().replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+						signLineIndex += 1;
+					});
+					if ($(signValue).children('.sign-input-destroy').is(':checked')) {
+						signLines[signLines.length - 1][3].lineCommand = 'DESTROYMACHINE';
+					}
+				});
+				// Adding the signs to the box
+				var signJsonData = '';
+				var signHeightY = 0;
+				var signLineCommand = '';
+				for (i = 0; i < signLines.length; i++) {
+					// Clear the sign json data to be used again
+					signJsonData = '';
+					for (b = 0; b < signLines[i].length; b++) {
+						if (signLines[i][b].lineText.length >= 1) {
+							// If a command is set for this line and there is also text
+							if (signLines[i][b].lineCommand.length >= 1) {
+								signLineCommand = ',clickEvent:{action:\\\\\\"run_command\\\\\\",value:\\\\\\"' + signLines[i][b].lineCommand.replace('DESTROYMACHINE', ('fill ~ ~' + 
+									(-(((Math.ceil((formatColFinal + 2) / 2) - 3) - Math.ceil(signLines.length / 2) + (signLines.length - 1) - i + 1) + 3)) + 
+									' ~-2 ~' + (formatHighestRow + 1) + ' ~' + 
+									(((Math.ceil((formatColFinal + 2) / 2) - 3) - Math.ceil(signLines.length / 2) + (signLines.length - 1) - i + 1) + 4) + 
+									' ~2 air')) + '\\\\\\"}'; // Test this ^^^ tomorrow.. it might simply need to have 1 or 2 added or subtracted to be correct. The negative makes it the opposite of what it calculates below, which will end up giving the bottom of the machine relative to the sign.
+							} else {
+								signLineCommand = '';
+							}
+							signJsonData = signJsonData + ',Text' + (b + 1) + ':"{text:\\\\\\"' + signLines[i][b].lineText + '\\\\\\",color:' + signLines[i][b].lineColor + signLineCommand;
+							if (signLines[i][b].lineItalic == true) {
+								signJsonData = signJsonData + ',italic:true';
+							}
+							if (signLines[i][b].lineBold == true) {
+								signJsonData = signJsonData + ',bold:true';
+							}
+							if (signLines[i][b].lineUnderlined == true) {
+								signJsonData = signJsonData + ',underlined:true';
+							}
+							signJsonData = signJsonData + '}"';
+						} else if (signLines[i][b].lineCommand.length >= 1) {
+							// If there is no text but there is a command set
+							signJsonData = signJsonData + ',Text' + (b + 1) + ':"{text:\\\\\\"\\\\\\",clickEvent:{action:\\\\\\"run_command\\\\\\",value:\\\\\\"' + signLines[i][b].lineCommand.replace('DESTROYMACHINE', ('fill ~ ~' + 
+									(-(((Math.ceil((formatColFinal + 2) / 2) - 3) - Math.ceil(signLines.length / 2) + (signLines.length - 1) - i + 1) + 3)) + 
+									' ~-2 ~' + (formatHighestRow + 1) + ' ~' + 
+									(((Math.ceil((formatColFinal + 2) / 2) - 3) - Math.ceil(signLines.length / 2) + (signLines.length - 1) - i + 1) + 4) + 
+									' ~2 air')) + '\\\\\\"}}"';
+						}
+					}
+					signJsonData = signJsonData.replace(',', ''); // Remove the extra comma at the beginning
+					signHeightY = (Math.ceil((formatColFinal + 2) / 2) - 3) - Math.ceil(signLines.length / 2) + (signLines.length - 1) - i + 1 + offsetY; // Calculate what the height of the sign should be so that it is vertically centered
+					formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:setblock ~1 ~' + signHeightY + ' ~ wall_sign 4 replace {' + signJsonData + '},Riding:{';
+					endBrackets += 1;
+				}
+				// Creating the casing
+				if ($('#option-box-encase').is(':checked')) {
+					// If the user has enabled casing for the box
+					var inputCaseBlockMain = $('#option-box-encase-block-window').val();
+					var inputCaseBlockCaps = $('#option-box-encase-block-caps').val();
+					if (inputCaseBlockMain.indexOf(' ') < 1) {
+						inputCaseBlockMain = inputCaseBlockMain + ' 0';
+					}
+					if (inputCaseBlockCaps.indexOf(' ') < 1) {
+						inputCaseBlockCaps = inputCaseBlockCaps + ' 0';
+					}
+					formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~' + (offsetX - 1) + ' ~' + (-2 + offsetY) + ' ~-2 ~' + (formatHighestRow + 1) + ' ~' + (formatColFinal - 2 + offsetY) + ' ~2 ' + inputCaseBlockMain + ' replace ' + inputCaseBlockCaps + ',Riding:{';
+					formattedClockCommands[formattedClockCommands.length] = 'id:MinecartCommandBlock,Command:fill ~' + (offsetX - 1) + ' ~' + (-3 + offsetY) + ' ~-2 ~' + (formatHighestRow + 1) + ' ~' + (formatColFinal - 1 + offsetY) + ' ~2 ' + inputCaseBlockCaps + ' hollow,Riding:{';
+					endBrackets += 2;
+				}
+			}
+			function updateOutput() {
+				outputCommand = outputCommand.replace(/~0 /g, '~ '); // Change unecessary '~0's to just '~'
+				if ($('#option-box-smart-mode').is(':checked') && $('input[name="option-structure-shape"]:checked').val() !== 'chain') {
+					var smallestCommandData = {cmdlength: 999999};
+					// Do the same as above, but for all smart potential commands
+					for (i = 0; i < smartModeCommands.length; i++) {
+						smartModeCommands[i].cmd = smartModeCommands[i].cmd.replace(/~0 /g, '~ ');
+						if (smartModeCommands[i].cmd.length < smallestCommandData.cmdlength) {
+							smallestCommandData.cmdlength = smartModeCommands[i].cmd.length;
+							smallestCommandData.cmdid = i;
+						}
+					}
+					$('#output-command').val(smartModeCommands[smallestCommandData.cmdid].cmd).css('display', 'inline-block');
+					$('#output-stats').html('Method: ' + smartModeCommands[smallestCommandData.cmdid].methodused + ', Length: ' + smartModeCommands[smallestCommandData.cmdid].cmd.length + ' characters');
+					var finalCommandUsed = smartModeCommands[smallestCommandData.cmdid].cmd;
+				} else {
+					$('#output-command').val(outputCommand).css('display', 'inline-block');
+					if ($('#option-box-use-blockdata').is(':checked')) {
+						var smartModeMethodDisplay = 'Blockdata';
+					} else {
+						var smartModeMethodDisplay = 'Setblock';
+					}
+					$('#output-stats').html('Method: ' + smartModeMethodDisplay + ', Length: ' + outputCommand.length + ' characters');
+					var finalCommandUsed = outputCommand;
+				}
+				$('#output-command-title').css('display', 'block');
+				$('#output-stats').css('display', 'block');
+				// Error box
+				if (finalCommandUsed.length > 32767) {
+					$('#output-errors').css('display', 'block').html('That command is ' + (finalCommandUsed.length - 32767) + ' characters over the limit! That means that this command will crash your game if you attempt to run it!<br>');
+				}
+			}
+		</script>
+	</body>
+</html>
